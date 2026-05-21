@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서비스 지역 현황 보고서</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f4f6f9; color: #333; padding: 40px 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg, #1a237e, #283593); color: #fff; padding: 40px; border-radius: 16px; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; margin-bottom: 8px; }
+  .header .date { font-size: 14px; opacity: 0.8; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+  .summary-card { background: #fff; border-radius: 12px; padding: 28px 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .summary-card .label { font-size: 13px; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .summary-card .value { font-size: 42px; font-weight: 700; }
+  .summary-card .sub { font-size: 13px; color: #999; margin-top: 4px; }
+  .card-total .value { color: #1a237e; }
+  .card-open .value { color: #2e7d32; }
+  .card-closed .value { color: #c62828; }
+  .card-rate .value { color: #e65100; }
+
+  .section { background: #fff; border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 20px; color: #1a237e; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8eaf6; }
+  .section h3 { font-size: 16px; color: #444; margin: 20px 0 12px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f5f6fa; color: #555; font-weight: 600; padding: 12px 10px; text-align: left; border-bottom: 2px solid #e0e0e0; white-space: nowrap; }
+  td { padding: 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+  tr:hover { background: #fafbff; }
+
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-open { background: #e8f5e9; color: #2e7d32; }
+  .badge-closed { background: #ffebee; color: #c62828; }
+  .badge-done { background: #e3f2fd; color: #1565c0; }
+  .badge-reserved { background: #fff3e0; color: #e65100; }
+  .badge-cancel { background: #f5f5f5; color: #757575; }
+
+  .bar-container { display: flex; align-items: center; gap: 8px; }
+  .bar-bg { flex: 1; height: 20px; background: #ffebee; border-radius: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #43a047, #66bb6a); border-radius: 10px; transition: width 0.6s; }
+  .bar-label { font-size: 12px; color: #666; min-width: 40px; text-align: right; }
+
+  .reason-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .reason-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #fafbfc; border-radius: 8px; border-left: 4px solid #c62828; }
+  .reason-item .reason-text { font-size: 14px; font-weight: 500; }
+  .reason-item .reason-count { font-size: 20px; font-weight: 700; color: #c62828; }
+
+  .status-summary { display: flex; gap: 16px; margin-bottom: 20px; }
+  .status-chip { padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+
+  .region-row td:first-child { font-weight: 600; }
+
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 40px; padding: 20px; }
+
+  @media (max-width: 768px) {
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .reason-list { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>서비스 지역 오픈 현황 보고서</h1>
+    <div class="date">보고일: 2026년 5월 21일 (수) | 기준 데이터: Notion 대리점 관리 DB</div>
+  </div>
+
+  <!-- ==================== 종합 총계 ==================== -->
+  <div class="summary-grid">
+    <div class="summary-card card-total">
+      <div class="label">전체 대리점</div>
+      <div class="value">51</div>
+      <div class="sub">전국 17개 시도</div>
+    </div>
+    <div class="summary-card card-open">
+      <div class="label">오픈 완료</div>
+      <div class="value">11</div>
+      <div class="sub">서비스 운영중</div>
+    </div>
+    <div class="summary-card card-closed">
+      <div class="label">미오픈</div>
+      <div class="value">40</div>
+      <div class="sub">오픈 준비중</div>
+    </div>
+    <div class="summary-card card-rate">
+      <div class="label">오픈율</div>
+      <div class="value">21.6%</div>
+      <div class="sub">목표 대비 진행중</div>
+    </div>
+  </div>
+
+  <!-- ==================== 미오픈 사유 분석 ==================== -->
+  <div class="section">
+    <h2>미오픈 사유 분석 (40건)</h2>
+    <div class="reason-list">
+      <div class="reason-item">
+        <div class="reason-text">히어로키트 미수령</div>
+        <div class="reason-count">21건</div>
+      </div>
+      <div class="reason-item" style="border-color:#e65100;">
+        <div class="reason-text">교육 미참가 (5/22 예정)</div>
+        <div class="reason-count" style="color:#e65100;">11건</div>
+      </div>
+      <div class="reason-item" style="border-color:#f9a825;">
+        <div class="reason-text">교육 미참가 (참가예정일 협의중)</div>
+        <div class="reason-count" style="color:#f9a825;">5건</div>
+      </div>
+      <div class="reason-item" style="border-color:#7b1fa2;">
+        <div class="reason-text">교육 미참가 (6/12 예정)</div>
+        <div class="reason-count" style="color:#7b1fa2;">3건</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 시도별 현황 ==================== -->
+  <div class="section">
+    <h2>시도별 오픈 현황</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>시/도</th>
+          <th>전체</th>
+          <th>오픈</th>
+          <th>미오픈</th>
+          <th>오픈율</th>
+          <th style="width:40%;">진행률</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="region-row">
+          <td>경기도</td><td>10</td><td>1</td><td>9</td><td>10.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:10%"></div></div><div class="bar-label">10%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>부산광역시</td><td>6</td><td>2</td><td>4</td><td>33.3%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:33.3%"></div></div><div class="bar-label">33%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>전라남도</td><td>5</td><td>2</td><td>3</td><td>40.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:40%"></div></div><div class="bar-label">40%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>경상남도</td><td>4</td><td>2</td><td>2</td><td>50.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div class="bar-label">50%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>충청남도</td><td>4</td><td>2</td><td>2</td><td>50.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div class="bar-label">50%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>광주광역시</td><td>4</td><td>1</td><td>3</td><td>25.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:25%"></div></div><div class="bar-label">25%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>인천광역시</td><td>3</td><td>0</td><td>3</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>서울특별시</td><td>3</td><td>0</td><td>3</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>강원특별자치도</td><td>2</td><td>0</td><td>2</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>충청북도</td><td>2</td><td>0</td><td>2</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>대구광역시</td><td>2</td><td>1</td><td>1</td><td>50.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><div class="bar-label">50%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>대전광역시</td><td>2</td><td>0</td><td>2</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>경상북도</td><td>2</td><td>0</td><td>2</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>울산광역시</td><td>1</td><td>0</td><td>1</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>전라북도</td><td>1</td><td>1</td><td>0</td><td>100%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><div class="bar-label">100%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>제주특별자치도</td><td>1</td><td>0</td><td>1</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>수원특례시</td><td>1</td><td>0</td><td>1</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+        <tr class="region-row">
+          <td>창원특례시</td><td>1</td><td>0</td><td>1</td><td>0.0%</td>
+          <td><div class="bar-container"><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><div class="bar-label">0%</div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 오픈 완료 대리점 ==================== -->
+  <div class="section">
+    <h2>오픈 완료 대리점 (11건)</h2>
+    <table>
+      <thead>
+        <tr><th>No.</th><th>대리점명</th><th>지역</th><th>상태</th><th>계약일</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>경남 대리점(거제시)</td><td>경상남도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>2</td><td>경기 대리점(김포시)</td><td>경기도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>3</td><td>충남 대리점(천안-동남구)</td><td>충청남도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>4</td><td>충남 대리점(천안-서북구)</td><td>충청남도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>5</td><td>전북 대리점(전주-덕진구/완주군)</td><td>전라남도, 전라북도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>6</td><td>전남 대리점(여수시)</td><td>전라남도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>7</td><td>대구 대리점(달서구)</td><td>대구광역시</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>8</td><td>광주 대리점(광산구/서구)</td><td>광주광역시</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>9</td><td>경남 대리점(진주시)</td><td>경상남도</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>10</td><td>부산 대리점(부산진구)</td><td>부산광역시</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+        <tr><td>11</td><td>부산 대리점(해운대구/동래구)</td><td>부산광역시</td><td><span class="badge badge-open">오픈</span></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 미오픈 - 히어로키트 미수령 ==================== -->
+  <div class="section">
+    <h2>미오픈 - 히어로키트 미수령 (21건)</h2>
+    <p style="color:#888; font-size:13px; margin-bottom:16px;">교육 이수 완료, 히어로키트 수령 후 오픈 가능</p>
+    <table>
+      <thead>
+        <tr><th>No.</th><th>대리점명</th><th>지역</th><th>상태</th><th>미오픈 사유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>경기 대리점(고양시)</td><td>경기도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>2</td><td>서울 대리점(강남구)</td><td>서울특별시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>3</td><td>부산 대리점(수영구)</td><td>부산광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>4</td><td>부산 대리점(연제구)</td><td>부산광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>5</td><td>전북 대리점(전주-완산구)</td><td>전라남도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>6</td><td>경북 대리점(구미시)</td><td>경상북도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>7</td><td>강원 대리점(삼척시)</td><td>강원특별자치도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>8</td><td>경남 대리점(김해-장유면)</td><td>경상남도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>9</td><td>경북 대리점(경주시)</td><td>경상북도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>10</td><td>충북 대리점(청주시)</td><td>충청북도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>11</td><td>경기 대리점(양주시)</td><td>경기도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>12</td><td>경기 대리점(이천시)</td><td>경기도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>13</td><td>서울 대리점(도봉구/노원구/강북구), 경기 대리점(의정부시)</td><td>서울특별시, 경기도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>14</td><td>서울 대리점(동대문구/성북구)</td><td>서울특별시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>15</td><td>광주 대리점(동구)</td><td>광주광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>16</td><td>광주 대리점(북구)</td><td>광주광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>17</td><td>수원 대리점(전역)</td><td>수원특례시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>18</td><td>경기 대리점(파주시)</td><td>경기도</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>19</td><td>창원 대리점(의창구/성산구/마산합포구/마산회원구/진해구)</td><td>창원특례시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>20</td><td>부산 대리점(남구)</td><td>부산광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+        <tr><td>21</td><td>대전 대리점(중구/서구/유성구)</td><td>대전광역시</td><td><span class="badge badge-closed">미오픈</span></td><td>히어로키트 미수령</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 미오픈 - 교육 미참가 ==================== -->
+  <div class="section">
+    <h2>미오픈 - 교육 미참가 (19건)</h2>
+    <p style="color:#888; font-size:13px; margin-bottom:16px;">교육 참가 후 키트 수령 및 오픈 진행 예정</p>
+
+    <h3>5/22 교육 예정 (11건)</h3>
+    <table>
+      <thead>
+        <tr><th>No.</th><th>대리점명</th><th>지역</th><th>참가예정일</th><th>미오픈 사유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>인천 대리점(중구-영종도)</td><td>인천광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>2</td><td>강원 대리점(원주시)</td><td>강원특별자치도</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>3</td><td>충북 대리점(충주시)</td><td>충청북도</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>4</td><td>대구 대리점(북구)</td><td>대구광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>5</td><td>경기 대리점(부천시)</td><td>경기도</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>6</td><td>대전 대리점(대덕구/동구)</td><td>대전광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>7</td><td>울산 대리점(남구, 중구)</td><td>울산광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>8</td><td>경남 대리점(김해시-장유제외)</td><td>경상남도</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>9</td><td>부산 대리점(강서구)</td><td>부산광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>10</td><td>충남 대리점(아산시)</td><td>충청남도</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+        <tr><td>11</td><td>광주 대리점(남구)</td><td>광주광역시</td><td>2026-05-22</td><td>교육 미참가</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6/12 교육 예정 (3건)</h3>
+    <table>
+      <thead>
+        <tr><th>No.</th><th>대리점명</th><th>지역</th><th>참가예정일</th><th>미오픈 사유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>인천 대리점(부평구/서구/연수구)</td><td>인천광역시</td><td>2026-06-12</td><td>교육 미참가</td></tr>
+        <tr><td>2</td><td>경기 대리점(구리시/남양주시)</td><td>경기도</td><td>2026-06-12</td><td>교육 미참가</td></tr>
+        <tr><td>3</td><td>제주 대리점(서귀포시/제주시)</td><td>제주특별자치도</td><td>2026-06-12</td><td>교육 미참가</td></tr>
+      </tbody>
+    </table>
+
+    <h3>참가예정일 협의중 (5건)</h3>
+    <table>
+      <thead>
+        <tr><th>No.</th><th>대리점명</th><th>지역</th><th>미오픈 사유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>경기 대리점(여주시)</td><td>경기도</td><td>참가예정일 협의중</td></tr>
+        <tr><td>2</td><td>인천 대리점(서해구/검단구)</td><td>인천광역시</td><td>참가예정일 협의중</td></tr>
+        <tr><td>3</td><td>경기 대리점(광주시)</td><td>경기도</td><td>참가예정일 협의중</td></tr>
+        <tr><td>4</td><td>충남 대리점(서산시)</td><td>충청남도</td><td>교육 미참가 참가예정일 협의중</td></tr>
+        <tr><td>5</td><td>전남 대리점(광양시/순천시)</td><td>전라남도</td><td>교육 미참가 참가예정일 협의중</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- ==================== 계약 상태 요약 ==================== -->
+  <div class="section">
+    <h2>계약 진행 상태 요약</h2>
+    <div style="display:flex; gap:16px; margin-bottom:20px;">
+      <div class="status-chip" style="background:#e3f2fd; color:#1565c0;">완료: 38건</div>
+      <div class="status-chip" style="background:#fff3e0; color:#e65100;">예약: 12건</div>
+      <div class="status-chip" style="background:#f5f5f5; color:#757575;">취소: 1건</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>건수</th><th>비율</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge badge-done">완료</span></td><td>38건</td><td>74.5%</td><td>계약 및 미팅 완료</td></tr>
+        <tr><td><span class="badge badge-reserved">예약</span></td><td>12건</td><td>23.5%</td><td>미팅 예약 대기중</td></tr>
+        <tr><td><span class="badge badge-cancel">취소</span></td><td>1건</td><td>2.0%</td><td>대전 대리점(대덕구/동구)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    본 보고서는 Notion 대리점 관리 데이터베이스 기준으로 자동 생성되었습니다. | 2026.05.21
+  </div>
+
+</div>
+</body>
+</html>
