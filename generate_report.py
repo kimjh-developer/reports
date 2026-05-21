@@ -9,7 +9,7 @@ from collections import defaultdict
 TOKEN_FILE = "key.txt"
 SOURCE_DB = "3484918520a8801ab030fd96d2d492c1"
 REF_DB = "1b64918520a883a4b4210169376fe29f"
-OUTPUT_FILE = "report.html"
+OUTPUT_FILE = "index.html"
 
 TODAY = datetime.now().strftime("%Y-%m-%d")
 TODAY_KR = datetime.now().strftime("%Y년 %m월 %d일")
