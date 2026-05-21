@@ -1,3 +1,4 @@
 key.txt
 update_reason.sh
 update_status.py
+__pycache__/
