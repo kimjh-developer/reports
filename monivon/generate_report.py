@@ -9,7 +9,16 @@ from collections import defaultdict
 TOKEN_FILE = "key.txt"
 SOURCE_DB = "3484918520a8801ab030fd96d2d492c1"
 REF_DB = "1b64918520a883a4b4210169376fe29f"
+COUPON_DB = "1b649185-20a8-83a4-b421-0169376fe29f"
 OUTPUT_FILE = "index.html"
+
+# 사용자 현황 (수동 업데이트)
+USER_STATS = {
+    "heroes": 126,
+    "users": 1244,
+    "pass_verified": 419,
+    "card_registered": 171,
+}
 
 TODAY = datetime.now().strftime("%Y-%m-%d")
 TODAY_KR = datetime.now().strftime("%Y년 %m월 %d일")
@@ -69,6 +78,10 @@ def get_date(prop):
     return d["start"] if d else ""
 
 
+def get_number(prop):
+    return prop.get("number") or 0
+
+
 def normalize_phone(p):
     return p.replace("-", "").replace(" ", "").replace("(", "").replace(")", "").strip()
 
@@ -99,6 +112,11 @@ def parse_ref(entries):
             "name": get_title(p.get("대리점명", {})),
             "phone": normalize_phone(get_text(p.get("연락처", {}))),
             "part_date": get_date(p.get("참가 날짜", {})),
+            "coupon_no": get_text(p.get("쿠폰No.", {})),
+            "coupon_qty": get_number(p.get("발급량", {})),
+            "coupon_target": get_select(p.get("쿠폰발행대상", {})),
+            "coupon_invited": get_number(p.get("쿠폰초대수", {})),
+            "coupon_used": get_number(p.get("쿠폰사용수", {})),
         })
     return result
 
@@ -226,6 +244,19 @@ def generate_html(source_data, ref_data):
   .card-open .value {{ color: #2e7d32; }}
   .card-closed .value {{ color: #c62828; }}
   .card-rate .value {{ color: #e65100; }}
+  .card-hero .value {{ color: #6a1b9a; }}
+  .card-user .value {{ color: #00695c; }}
+  .card-pass .value {{ color: #0277bd; }}
+  .card-card .value {{ color: #bf360c; }}
+  .card-coupon .value {{ color: #4527a0; }}
+  .card-coupon-inv .value {{ color: #00838f; }}
+  .card-coupon-use .value {{ color: #2e7d32; }}
+  .card-coupon-rate .value {{ color: #ad1457; }}
+  .user-stats-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }}
+  .coupon-bar {{ display: flex; align-items: center; gap: 6px; }}
+  .coupon-bar-bg {{ flex: 1; height: 16px; background: #f0f0f0; border-radius: 8px; overflow: hidden; }}
+  .coupon-bar-fill {{ height: 100%; border-radius: 8px; }}
+  .coupon-bar-label {{ font-size: 11px; color: #666; min-width: 35px; text-align: right; }}
   .section {{ background: #fff; border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }}
   .section h2 {{ font-size: 20px; color: #1a237e; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e8eaf6; }}
   .section h3 {{ font-size: 16px; color: #444; margin: 20px 0 12px; }}
@@ -286,6 +317,59 @@ def generate_html(source_data, ref_data):
       <div class="label">오픈율</div>
       <div class="value">{open_rate:.1f}%</div>
       <div class="sub">목표 대비 진행중</div>
+    </div>
+  </div>
+
+  <!-- 사용자 현황 -->
+  <div class="section">
+    <h2>사용자 현황</h2>
+    <div class="user-stats-grid">
+      <div class="summary-card card-hero">
+        <div class="label">히어로</div>
+        <div class="value">{USER_STATS["heroes"]}</div>
+        <div class="sub">등록 히어로 수</div>
+      </div>
+      <div class="summary-card card-user">
+        <div class="label">사용자</div>
+        <div class="value">{USER_STATS["users"]:,}</div>
+        <div class="sub">가입 사용자 수</div>
+      </div>
+      <div class="summary-card card-pass">
+        <div class="label">PASS 인증 완료</div>
+        <div class="value">{USER_STATS["pass_verified"]}</div>
+        <div class="sub">전체 사용자 대비 {USER_STATS["pass_verified"]/USER_STATS["users"]*100:.1f}%</div>
+      </div>
+      <div class="summary-card card-card">
+        <div class="label">카드 등록 완료</div>
+        <div class="value">{USER_STATS["card_registered"]}</div>
+        <div class="sub">전체 사용자 대비 {USER_STATS["card_registered"]/USER_STATS["users"]*100:.1f}%</div>
+      </div>
+    </div>
+    <div style="padding: 0 4px;">
+      <div style="display:flex; justify-content:space-between; font-size:12px; color:#888; margin-bottom:4px;">
+        <span>사용자 전환 퍼널</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-size:12px; min-width:90px; color:#555;">가입 ({USER_STATS["users"]:,})</span>
+        <div style="flex:1; height:24px; background:#e0f2f1; border-radius:6px; overflow:hidden;">
+          <div style="width:100%; height:100%; background:linear-gradient(90deg, #00897b, #26a69a); border-radius:6px;"></div>
+        </div>
+        <span style="font-size:12px; color:#666; min-width:40px;">100%</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-size:12px; min-width:90px; color:#555;">PASS ({USER_STATS["pass_verified"]})</span>
+        <div style="flex:1; height:24px; background:#e1f5fe; border-radius:6px; overflow:hidden;">
+          <div style="width:{USER_STATS["pass_verified"]/USER_STATS["users"]*100:.1f}%; height:100%; background:linear-gradient(90deg, #0288d1, #29b6f6); border-radius:6px;"></div>
+        </div>
+        <span style="font-size:12px; color:#666; min-width:40px;">{USER_STATS["pass_verified"]/USER_STATS["users"]*100:.1f}%</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:12px; min-width:90px; color:#555;">카드 ({USER_STATS["card_registered"]})</span>
+        <div style="flex:1; height:24px; background:#fbe9e7; border-radius:6px; overflow:hidden;">
+          <div style="width:{USER_STATS["card_registered"]/USER_STATS["users"]*100:.1f}%; height:100%; background:linear-gradient(90deg, #d84315, #ff7043); border-radius:6px;"></div>
+        </div>
+        <span style="font-size:12px; color:#666; min-width:40px;">{USER_STATS["card_registered"]/USER_STATS["users"]*100:.1f}%</span>
+      </div>
     </div>
   </div>
 
@@ -446,6 +530,70 @@ def generate_html(source_data, ref_data):
   </div>
 
 """
+    # 쿠폰 현황
+    coupon_dealers = [e for e in ref_data if e["coupon_qty"] > 0]
+    if coupon_dealers:
+        total_issued = sum(e["coupon_qty"] for e in coupon_dealers)
+        total_invited = sum(e["coupon_invited"] for e in coupon_dealers)
+        total_used = sum(e["coupon_used"] for e in coupon_dealers)
+        use_rate = (total_used / total_invited * 100) if total_invited else 0
+
+        html += f"""  <!-- 쿠폰 현황 -->
+  <div class="section">
+    <h2>쿠폰 배포 현황</h2>
+    <div class="user-stats-grid">
+      <div class="summary-card card-coupon">
+        <div class="label">총 발행량</div>
+        <div class="value">{total_issued}</div>
+        <div class="sub">{len(coupon_dealers)}개 대리점 배포</div>
+      </div>
+      <div class="summary-card card-coupon-inv">
+        <div class="label">초대(등록)수</div>
+        <div class="value">{total_invited}</div>
+        <div class="sub">쿠폰 사용자 등록</div>
+      </div>
+      <div class="summary-card card-coupon-use">
+        <div class="label">사용 완료</div>
+        <div class="value">{total_used}</div>
+        <div class="sub">실제 서비스 이용</div>
+      </div>
+      <div class="summary-card card-coupon-rate">
+        <div class="label">사용률</div>
+        <div class="value">{use_rate:.1f}%</div>
+        <div class="sub">초대 대비 사용 비율</div>
+      </div>
+    </div>
+"""
+        # 초대 발생 대리점 성과 테이블
+        active_coupons = [e for e in coupon_dealers if e["coupon_invited"] > 0]
+        active_coupons.sort(key=lambda x: (-x["coupon_invited"], -x["coupon_qty"]))
+        if active_coupons:
+            html += '    <h3>대리점별 쿠폰 성과 (초대 발생 대리점)</h3>\n'
+            html += '    <table>\n      <thead>\n'
+            html += '        <tr><th>대리점</th><th>쿠폰번호</th><th>발급량</th><th>초대수</th><th>사용수</th><th>초대율</th><th>성과</th></tr>\n'
+            html += '      </thead>\n      <tbody>\n'
+            for e in active_coupons:
+                inv_rate = (e["coupon_invited"] / e["coupon_qty"] * 100) if e["coupon_qty"] else 0
+                if inv_rate >= 20:
+                    bar_color = "linear-gradient(90deg,#2e7d32,#66bb6a)"
+                elif inv_rate >= 10:
+                    bar_color = "linear-gradient(90deg,#1565c0,#42a5f5)"
+                else:
+                    bar_color = "linear-gradient(90deg,#e65100,#ff9800)"
+                html += f'        <tr><td style="font-weight:600;">{e["name"]}</td><td>{e["coupon_no"]}</td><td>{e["coupon_qty"]}</td><td>{e["coupon_invited"]}</td><td>{e["coupon_used"]}</td><td>{inv_rate:.1f}%</td>\n'
+                html += f'          <td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:{inv_rate:.1f}%; background:{bar_color};"></div></div><div class="coupon-bar-label">{inv_rate:.0f}%</div></div></td></tr>\n'
+            html += '      </tbody>\n    </table>\n'
+
+        # 전체 발급 현황 테이블
+        all_coupons = sorted(coupon_dealers, key=lambda x: -x["coupon_qty"])
+        html += '\n    <h3 style="margin-top:28px;">전체 대리점 쿠폰 발급 현황</h3>\n'
+        html += '    <table>\n      <thead>\n'
+        html += '        <tr><th>No.</th><th>대리점</th><th>쿠폰번호</th><th>발급량</th><th>초대</th><th>사용</th></tr>\n'
+        html += '      </thead>\n      <tbody>\n'
+        for i, e in enumerate(all_coupons, 1):
+            html += f'        <tr><td>{i}</td><td>{e["name"]}</td><td>{e["coupon_no"]}</td><td>{e["coupon_qty"]}</td><td>{e["coupon_invited"]}</td><td>{e["coupon_used"]}</td></tr>\n'
+        html += '      </tbody>\n    </table>\n  </div>\n\n'
+
     html += f"""  <div class="footer">
     본 보고서는 Notion 대리점 관리 데이터베이스 기준으로 자동 생성되었습니다. | {TODAY}
   </div>
