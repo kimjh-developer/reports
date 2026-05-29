@@ -1,0 +1,144 @@
+{
+  "updated": "2026-05-29",
+  "sales": {
+    "today_sales": 5200,
+    "month_sales": 155740,
+    "year_sales": 253340,
+    "unpaid_count": 2
+  },
+  "users": {
+    "today_signup": 19,
+    "total_users": 1469
+  },
+  "heroes": {
+    "total_heroes": 132,
+    "active_heroes": 69
+  },
+  "collections": {
+    "today_requests": 2,
+    "requested": 0,
+    "matched": 1,
+    "completed": 37
+  },
+  "operations": {
+    "unanswered_inquiries": 0,
+    "pending_settlements": 9,
+    "pending_agencies": 0,
+    "active_agencies": 45
+  },
+  "monthly_sales": [
+    {
+      "year": 2026,
+      "month": 5,
+      "total_revenue": 159280,
+      "actual_revenue": 155740,
+      "uncollected_amount": 3540,
+      "refund_amount": 59900
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "total_revenue": 92220,
+      "actual_revenue": 91100,
+      "uncollected_amount": 1120,
+      "refund_amount": 6500
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "total_revenue": 6500,
+      "actual_revenue": 6500,
+      "uncollected_amount": 0,
+      "refund_amount": 6500
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "total_revenue": 0,
+      "actual_revenue": 0,
+      "uncollected_amount": 0,
+      "refund_amount": 0
+    }
+  ],
+  "current_month_sales": {
+    "year": 2026,
+    "month": 5,
+    "total_revenue": 159280,
+    "actual_revenue": 155740,
+    "uncollected_amount": 3540,
+    "refund_amount": 59900,
+    "prev_month_total_revenue": 92220,
+    "prev_month_actual_revenue": 91100
+  },
+  "payment_stats": {
+    "today_amount": 5200,
+    "today_count": 2,
+    "paid_count": 88,
+    "failed_count": 0,
+    "unpaid_count": 2
+  }
+}

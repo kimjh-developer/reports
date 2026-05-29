@@ -3,44 +3,824 @@
   "total_issued": 652,
   "total_dealers": 39,
   "dealers": [
-    { "name": "광주 광산구/서구", "issued": 19, "history": [{ "date": "2026-05-27", "invited": 8, "used": 6 }, { "date": "2026-05-28", "invited": 10, "used": 7 }] },
-    { "name": "대전 대리점", "issued": 17, "history": [{ "date": "2026-05-27", "invited": 4, "used": 0 }, { "date": "2026-05-28", "invited": 4, "used": 2 }] },
-    { "name": "전주 완산구", "issued": 14, "history": [{ "date": "2026-05-27", "invited": 2, "used": 0 }, { "date": "2026-05-28", "invited": 2, "used": 0 }] },
-    { "name": "삼척 대리점", "issued": 20, "history": [{ "date": "2026-05-27", "invited": 2, "used": 0 }, { "date": "2026-05-28", "invited": 2, "used": 0 }] },
-    { "name": "인천 영종도", "issued": 11, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 0 }] },
-    { "name": "부산남구", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 1 }] },
-    { "name": "전남 여수", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 0 }] },
-    { "name": "경기 이천", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 0 }] },
-    { "name": "천안 서북구", "issued": 14, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 0 }] },
-    { "name": "김해대리점", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 0 }] },
-    { "name": "천안 동남구", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 1, "used": 1 }, { "date": "2026-05-28", "invited": 1, "used": 1 }] },
-    { "name": "대구 달서구", "issued": 18, "history": [{ "date": "2026-05-27", "invited": 1, "used": 0 }, { "date": "2026-05-28", "invited": 1, "used": 1 }] },
-    { "name": "의정부/도봉/노원/강북", "issued": 30, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "울산 대리점", "issued": 27, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 고양", "issued": 26, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "창원대리점", "issued": 26, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기수원", "issued": 25, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 부천", "issued": 22, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "서울 동대문/성북", "issued": 21, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "인천 서해구/검단구", "issued": 19, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "서울 강남구", "issued": 18, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "충북 청주", "issued": 18, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 김포", "issued": 17, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 파주", "issued": 17, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "구미 대리점", "issued": 16, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "해운대 대리점", "issued": 16, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "광주 북구", "issued": 16, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 광주", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "전주 덕진구/완주군", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경남 진주", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "부산진구", "issued": 15, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "장유 대리점", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경남 거제", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경주 불국사히어로", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 양주", "issued": 13, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "수영구 대리점", "issued": 12, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "연제구대리점", "issued": 12, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "경기 여주", "issued": 10, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] },
-    { "name": "광주 동구", "issued": 10, "history": [{ "date": "2026-05-27", "invited": 0, "used": 0 }, { "date": "2026-05-28", "invited": 0, "used": 0 }] }
+    {
+      "name": "광주 광산구/서구",
+      "issued": 19,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 8,
+          "used": 6
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 10,
+          "used": 7
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 10,
+          "used": 7
+        }
+      ]
+    },
+    {
+      "name": "대전 대리점",
+      "issued": 17,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 4,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 4,
+          "used": 2
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 4,
+          "used": 2
+        }
+      ]
+    },
+    {
+      "name": "전주 완산구",
+      "issued": 14,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 2,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 2,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 2,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "삼척 대리점",
+      "issued": 20,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 2,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 2,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 2,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "인천 영종도",
+      "issued": 11,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "부산남구",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 1
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 1
+        }
+      ]
+    },
+    {
+      "name": "전남 여수",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 이천",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "천안 서북구",
+      "issued": 14,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "김해대리점",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "천안 동남구",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 1
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 1
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 1
+        }
+      ]
+    },
+    {
+      "name": "대구 달서구",
+      "issued": 18,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 1,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 1,
+          "used": 1
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 1,
+          "used": 1
+        }
+      ]
+    },
+    {
+      "name": "의정부/도봉/노원/강북",
+      "issued": 30,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "울산 대리점",
+      "issued": 27,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 고양",
+      "issued": 26,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "창원대리점",
+      "issued": 26,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기수원",
+      "issued": 25,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 부천",
+      "issued": 22,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "서울 동대문/성북",
+      "issued": 21,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "인천 서해구/검단구",
+      "issued": 19,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "서울 강남구",
+      "issued": 18,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "충북 청주",
+      "issued": 18,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 김포",
+      "issued": 17,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 파주",
+      "issued": 17,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "구미 대리점",
+      "issued": 16,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "해운대 대리점",
+      "issued": 16,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "광주 북구",
+      "issued": 16,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 광주",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "전주 덕진구/완주군",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경남 진주",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "부산진구",
+      "issued": 15,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "장유 대리점",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경남 거제",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경주 불국사히어로",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 양주",
+      "issued": 13,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "수영구 대리점",
+      "issued": 12,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "연제구대리점",
+      "issued": 12,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "경기 여주",
+      "issued": 10,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "name": "광주 동구",
+      "issued": 10,
+      "history": [
+        {
+          "date": "2026-05-27",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-28",
+          "invited": 0,
+          "used": 0
+        },
+        {
+          "date": "2026-05-29",
+          "invited": 0,
+          "used": 0
+        }
+      ]
+    }
   ]
 }
