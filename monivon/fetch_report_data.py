@@ -13,14 +13,38 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
 # ============================================================
-# 설정
+# 설정 (.env 파일에서 로드)
 # ============================================================
-API_BASE = "https://admin-api.sugohero.co.kr"
-ADMIN_ID = "admin"
-ADMIN_PWD = "sugohero2025??!!"
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(SCRIPT_DIR, "data")
+ENV_FILE = os.path.join(SCRIPT_DIR, ".env")
+
+
+def load_env():
+    """로컬 .env 파일에서 설정을 읽어옴"""
+    env = {}
+    if not os.path.exists(ENV_FILE):
+        print(f"[오류] .env 파일이 없습니다: {ENV_FILE}", file=sys.stderr)
+        print("  .env 파일을 생성하고 아래 내용을 입력하세요:", file=sys.stderr)
+        print("    ADMIN_API_BASE=https://admin-api.sugohero.co.kr", file=sys.stderr)
+        print("    ADMIN_ID=your_id", file=sys.stderr)
+        print("    ADMIN_PWD=your_password", file=sys.stderr)
+        sys.exit(1)
+    with open(ENV_FILE, "r") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" in line:
+                key, val = line.split("=", 1)
+                env[key.strip()] = val.strip()
+    return env
+
+
+ENV = load_env()
+API_BASE = ENV.get("ADMIN_API_BASE", "https://admin-api.sugohero.co.kr")
+ADMIN_ID = ENV["ADMIN_ID"]
+ADMIN_PWD = ENV["ADMIN_PWD"]
 
 # 대리점-쿠폰코드 범위 매핑 (SUGO-OPEN-EVENT-XXX)
 DEALER_CODE_RANGES = {
