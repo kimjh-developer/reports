@@ -134,7 +134,7 @@
 
 <div class="header">
   <h1>모니본 종합 보고서</h1>
-  <div class="date">보고일: 2026년 05월 29일 (금) | 기준 데이터: Notion DB + 사용자쿠폰 Excel</div>
+  <div class="date">보고일: 2026년 05월 29일 (금) | 기준 데이터: Admin API + Notion DB</div>
 </div>
 
 <!-- 대분류 탭 -->
@@ -157,7 +157,7 @@
   <div class="container">
     <!-- 종합 현황 -->
     <div id="sub-svc-summary" class="tab-panel active">
-      <div class="summary-grid">
+      <div id="svc-summary-cards" class="summary-grid">
         <div class="summary-card card-total">
           <div class="label">전체 대리점</div>
           <div class="value">45</div>
@@ -179,6 +179,9 @@
           <div class="sub">목표 대비 진행중</div>
         </div>
       </div>
+      <!-- 핵심 지표 (dashboard.json 동적) -->
+      <div id="svc-kpi-cards" class="summary-grid"></div>
+      <div id="svc-sales-chart" class="section" style="display:none;"></div>
 
       <div class="section">
         <h2>미오픈 사유 분석 (9건)</h2>
@@ -203,49 +206,10 @@
       </div>
     </div>
 
-    <!-- 사용자 현황 -->
+    <!-- 사용자 현황 (동적 렌더링) -->
     <div id="sub-svc-users" class="tab-panel">
-      <div class="summary-grid">
-        <div class="summary-card card-hero">
-          <div class="label">히어로</div>
-          <div class="value">126</div>
-          <div class="sub">등록 히어로 수</div>
-        </div>
-        <div class="summary-card card-user">
-          <div class="label">사용자</div>
-          <div class="value">1,244</div>
-          <div class="sub">가입 사용자 수</div>
-        </div>
-        <div class="summary-card card-pass">
-          <div class="label">PASS 인증</div>
-          <div class="value">419</div>
-          <div class="sub">전체 대비 33.7%</div>
-        </div>
-        <div class="summary-card card-card">
-          <div class="label">카드 등록</div>
-          <div class="value">171</div>
-          <div class="sub">전체 대비 13.7%</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>사용자 전환 퍼널</h2>
-        <div class="funnel-row">
-          <span class="funnel-label">가입 (1,244)</span>
-          <div class="funnel-track" style="background:#e0f2f1;"><div class="funnel-fill" style="width:100%; background:linear-gradient(90deg,#00897b,#26a69a);"></div></div>
-          <span class="funnel-pct">100%</span>
-        </div>
-        <div class="funnel-row">
-          <span class="funnel-label">PASS (419)</span>
-          <div class="funnel-track" style="background:#e1f5fe;"><div class="funnel-fill" style="width:33.7%; background:linear-gradient(90deg,#0288d1,#29b6f6);"></div></div>
-          <span class="funnel-pct">33.7%</span>
-        </div>
-        <div class="funnel-row">
-          <span class="funnel-label">카드 (171)</span>
-          <div class="funnel-track" style="background:#fbe9e7;"><div class="funnel-fill" style="width:13.7%; background:linear-gradient(90deg,#d84315,#ff7043);"></div></div>
-          <span class="funnel-pct">13.7%</span>
-        </div>
-      </div>
+      <div id="svc-users-cards" class="summary-grid"></div>
+      <div id="svc-users-detail" class="section"></div>
     </div>
 
     <!-- 시도별 현황 -->
@@ -377,14 +341,22 @@
 <!-- ==================== 마케팅 보고서 ==================== -->
 <div id="panel-marketing" class="tab-panel">
   <div class="sub-tabs">
-    <div class="sub-tab active" data-sub="mkt-summary">쿠폰 종합</div>
+    <div class="sub-tab active" data-sub="mkt-sales">매출 현황</div>
+    <div class="sub-tab" data-sub="mkt-summary">쿠폰 종합</div>
     <div class="sub-tab" data-sub="mkt-performance">대리점 성과</div>
     <div class="sub-tab" data-sub="mkt-all">전체 발급 현황</div>
   </div>
 
   <div class="container">
+    <!-- 매출 현황 (동적 렌더링) -->
+    <div id="sub-mkt-sales" class="tab-panel active">
+      <div id="mkt-sales-cards" class="summary-grid"></div>
+      <div id="mkt-sales-monthly" class="section"></div>
+      <div id="mkt-sales-detail" class="section"></div>
+    </div>
+
     <!-- 쿠폰 종합 (동적 렌더링) -->
-    <div id="sub-mkt-summary" class="tab-panel active">
+    <div id="sub-mkt-summary" class="tab-panel">
       <div id="mkt-summary-cards" class="summary-grid"></div>
       <div id="mkt-daily-trend" class="section"></div>
       <div id="mkt-funnel" class="section"></div>
@@ -436,6 +408,174 @@ document.querySelectorAll('.sub-tab').forEach(tab => {
     document.getElementById('sub-' + target).classList.add('active');
   });
 });
+
+// ==================== 대시보드 데이터 렌더링 ====================
+
+async function renderDashboard() {
+  const resp = await fetch('data/dashboard.json');
+  const db = await resp.json();
+  const s = db.sales, u = db.users, h = db.heroes, c = db.collections, o = db.operations;
+  const cms = db.current_month_sales;
+  const ps = db.payment_stats;
+
+  // 전월 대비 매출 증감
+  const prevRev = cms.prev_month_total_revenue || 0;
+  const curRev = cms.total_revenue || 0;
+  const salesDiff = prevRev > 0 ? ((curRev - prevRev) / prevRev * 100).toFixed(1) : '0';
+  const salesUp = curRev >= prevRev;
+
+  // === 서비스 종합 현황 - 핵심 KPI 카드 ===
+  document.getElementById('svc-kpi-cards').innerHTML = `
+    <div class="summary-card" style="border-left:4px solid #1565c0;">
+      <div class="label">5월 매출</div>
+      <div class="value" style="color:#1565c0; font-size:28px;">${(cms.actual_revenue || 0).toLocaleString()}원</div>
+      <div class="change ${salesUp?'change-up':'change-down'}">전월 대비 ${salesUp?'+':''}${salesDiff}%</div>
+      <div class="change-date">전월 ${prevRev.toLocaleString()}원</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #00695c;">
+      <div class="label">총 사용자</div>
+      <div class="value" style="color:#00695c; font-size:28px;">${u.total_users.toLocaleString()}명</div>
+      <div class="sub">오늘 +${u.today_signup}명 가입</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #6a1b9a;">
+      <div class="label">히어로</div>
+      <div class="value" style="color:#6a1b9a; font-size:28px;">${h.total_heroes}명</div>
+      <div class="sub">활성 ${h.active_heroes}명 (${(h.active_heroes/h.total_heroes*100).toFixed(0)}%)</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #e65100;">
+      <div class="label">오늘 매출</div>
+      <div class="value" style="color:#e65100; font-size:28px;">${s.today_sales.toLocaleString()}원</div>
+      <div class="sub">결제 ${ps.today_count}건 | 미수 ${ps.unpaid_count}건</div>
+    </div>
+  `;
+
+  // 매출 바차트 (월별)
+  const months = db.monthly_sales.filter(m => m.total_revenue > 0).reverse();
+  if (months.length > 0) {
+    const maxRev = Math.max(...months.map(m => m.total_revenue));
+    let barRows = months.map(m => {
+      const pct = (m.total_revenue / maxRev * 100).toFixed(0);
+      return `<div class="funnel-row">
+        <span class="funnel-label">${m.year}.${String(m.month).padStart(2,'0')}</span>
+        <div class="funnel-track" style="background:#e3f2fd;"><div class="funnel-fill" style="width:${pct}%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div>
+        <span class="funnel-pct" style="min-width:80px;">${m.actual_revenue.toLocaleString()}원</span>
+      </div>`;
+    }).join('');
+    const el = document.getElementById('svc-sales-chart');
+    el.style.display = 'block';
+    el.innerHTML = `<h2>월별 매출 추이</h2>${barRows}`;
+  }
+
+  // === 사용자 현황 탭 ===
+  document.getElementById('svc-users-cards').innerHTML = `
+    <div class="summary-card card-user">
+      <div class="label">총 사용자</div>
+      <div class="value">${u.total_users.toLocaleString()}</div>
+      <div class="sub">오늘 +${u.today_signup}명</div>
+    </div>
+    <div class="summary-card card-hero">
+      <div class="label">히어로</div>
+      <div class="value">${h.total_heroes}</div>
+      <div class="sub">활성 ${h.active_heroes}명</div>
+    </div>
+    <div class="summary-card card-coupon">
+      <div class="label">수거 완료</div>
+      <div class="value">${c.completed}</div>
+      <div class="sub">오늘 요청 ${c.today_requests}건</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #ef6c00;">
+      <div class="label">대리점</div>
+      <div class="value" style="color:#ef6c00;">${o.active_agencies}</div>
+      <div class="sub">정산대기 ${o.pending_settlements}건</div>
+    </div>
+  `;
+
+  document.getElementById('svc-users-detail').innerHTML = `
+    <h2>서비스 운영 현황</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>항목</th><th>수치</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;">총 가입자</td><td>${u.total_users.toLocaleString()}명</td><td>오늘 +${u.today_signup}명</td></tr>
+        <tr><td style="font-weight:600;">히어로 (전체)</td><td>${h.total_heroes}명</td><td>활성 ${h.active_heroes}명 / 비활성 ${h.total_heroes - h.active_heroes}명</td></tr>
+        <tr><td style="font-weight:600;">수거 완료</td><td>${c.completed}건</td><td>매칭중 ${c.matched}건 / 오늘 요청 ${c.today_requests}건</td></tr>
+        <tr><td style="font-weight:600;">결제 건수</td><td>${ps.paid_count}건</td><td>미수 ${ps.unpaid_count}건 / 실패 ${ps.failed_count}건</td></tr>
+        <tr><td style="font-weight:600;">5월 매출 (실수령)</td><td>${cms.actual_revenue.toLocaleString()}원</td><td>총매출 ${cms.total_revenue.toLocaleString()}원</td></tr>
+        <tr><td style="font-weight:600;">5월 환불</td><td>${cms.refund_amount.toLocaleString()}원</td><td>미수금 ${cms.uncollected_amount.toLocaleString()}원</td></tr>
+        <tr><td style="font-weight:600;">4월 매출</td><td>${(cms.prev_month_actual_revenue||0).toLocaleString()}원</td><td>전월 대비 ${salesUp?'+':''}${salesDiff}%</td></tr>
+      </tbody>
+    </table></div>
+  `;
+
+  // === 마케팅 > 매출 현황 탭 ===
+  document.getElementById('mkt-sales-cards').innerHTML = `
+    <div class="summary-card" style="border-left:4px solid #1565c0;">
+      <div class="label">5월 실수령</div>
+      <div class="value" style="color:#1565c0; font-size:28px;">${cms.actual_revenue.toLocaleString()}원</div>
+      <div class="change ${salesUp?'change-up':'change-down'}">전월 대비 ${salesUp?'+':''}${salesDiff}%</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #4527a0;">
+      <div class="label">5월 총매출</div>
+      <div class="value" style="color:#4527a0; font-size:28px;">${cms.total_revenue.toLocaleString()}원</div>
+      <div class="sub">미수금 ${cms.uncollected_amount.toLocaleString()}원</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #c62828;">
+      <div class="label">환불</div>
+      <div class="value" style="color:#c62828; font-size:28px;">${cms.refund_amount.toLocaleString()}원</div>
+      <div class="sub">5월 누적</div>
+    </div>
+    <div class="summary-card" style="border-left:4px solid #e65100;">
+      <div class="label">오늘 매출</div>
+      <div class="value" style="color:#e65100; font-size:28px;">${s.today_sales.toLocaleString()}원</div>
+      <div class="sub">${ps.today_count}건 결제</div>
+    </div>
+  `;
+
+  // 월별 매출 테이블
+  const allMonths = db.monthly_sales.filter(m => m.total_revenue > 0).reverse();
+  if (allMonths.length > 0) {
+    let monthRows = allMonths.map((m, i) => {
+      const prev = i > 0 ? allMonths[i-1] : null;
+      const diff = prev ? m.total_revenue - prev.total_revenue : 0;
+      const diffPct = prev && prev.total_revenue > 0 ? (diff / prev.total_revenue * 100).toFixed(1) : '-';
+      const diffTag = prev ? (diff >= 0
+        ? '<span class="change change-up">+' + diff.toLocaleString() + '원 (+' + diffPct + '%)</span>'
+        : '<span class="change change-down">' + diff.toLocaleString() + '원 (' + diffPct + '%)</span>')
+        : '<span class="change change-neutral">-</span>';
+      return `<tr>
+        <td style="font-weight:600;">${m.year}.${String(m.month).padStart(2,'0')}</td>
+        <td>${m.total_revenue.toLocaleString()}원</td>
+        <td>${m.actual_revenue.toLocaleString()}원</td>
+        <td>${m.refund_amount.toLocaleString()}원</td>
+        <td>${m.uncollected_amount.toLocaleString()}원</td>
+        <td>${diffTag}</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('mkt-sales-monthly').innerHTML = `
+      <h2>월별 매출 추이</h2>
+      <div class="table-scroll"><table>
+        <thead><tr><th>월</th><th>총매출</th><th>실수령</th><th>환불</th><th>미수금</th><th>전월 대비</th></tr></thead>
+        <tbody>${monthRows}</tbody>
+      </table></div>
+    `;
+  }
+
+  // 결제 상세
+  document.getElementById('mkt-sales-detail').innerHTML = `
+    <h2>결제 현황</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>항목</th><th>수치</th></tr></thead>
+      <tbody>
+        <tr><td>오늘 매출</td><td>${s.today_sales.toLocaleString()}원 (${ps.today_count}건)</td></tr>
+        <tr><td>누적 결제</td><td>${ps.paid_count}건</td></tr>
+        <tr><td>미수</td><td>${ps.unpaid_count}건</td></tr>
+        <tr><td>실패</td><td>${ps.failed_count}건</td></tr>
+        <tr><td>연간 매출</td><td>${s.year_sales.toLocaleString()}원</td></tr>
+      </tbody>
+    </table></div>
+  `;
+}
+
+renderDashboard();
 
 // ==================== 마케팅 보고서 동적 렌더링 ====================
 
