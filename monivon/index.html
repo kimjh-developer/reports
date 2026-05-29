@@ -383,155 +383,21 @@
   </div>
 
   <div class="container">
-    <!-- 쿠폰 종합 -->
+    <!-- 쿠폰 종합 (동적 렌더링) -->
     <div id="sub-mkt-summary" class="tab-panel active">
-      <div class="summary-grid">
-        <div class="summary-card card-coupon">
-          <div class="label">총 발행량</div>
-          <div class="value">652</div>
-          <div class="sub">39개 대리점 배포</div>
-        </div>
-        <div class="summary-card card-coupon-inv">
-          <div class="label">초대(등록)수</div>
-          <div class="value">26</div>
-          <div class="change change-up">+3 (+13.0%)</div>
-          <div class="change-date">전일(5/27) 대비</div>
-        </div>
-        <div class="summary-card card-coupon-use">
-          <div class="label">사용 완료</div>
-          <div class="value">12</div>
-          <div class="change change-up">+5 (+71.4%)</div>
-          <div class="change-date">전일(5/27) 대비</div>
-        </div>
-        <div class="summary-card card-coupon-rate">
-          <div class="label">사용률</div>
-          <div class="value">46.2%</div>
-          <div class="change change-up">+15.8%p</div>
-          <div class="change-date">전일(5/27) 30.4%</div>
-        </div>
-      </div>
-
-      <!-- 일일 증감 추이 -->
-      <div class="section">
-        <h2>쿠폰 사용 일일 추이</h2>
-        <div class="table-scroll">
-        <table>
-          <thead><tr><th>기준일</th><th>등록수</th><th>사용완료</th><th>미사용</th><th>사용률</th><th>등록 증감</th><th>사용 증감</th></tr></thead>
-          <tbody>
-            <tr>
-              <td style="font-weight:600;">5/28 (최신)</td><td>26</td><td>12</td><td>14</td><td>46.2%</td>
-              <td><span class="change change-up">+3 (+13.0%)</span></td>
-              <td><span class="change change-up">+5 (+71.4%)</span></td>
-            </tr>
-            <tr>
-              <td>5/27</td><td>23</td><td>7</td><td>16</td><td>30.4%</td>
-              <td><span class="change change-neutral">-</span></td>
-              <td><span class="change change-neutral">-</span></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2>쿠폰 전환 퍼널</h2>
-        <div class="funnel-row">
-          <span class="funnel-label">발행 (652)</span>
-          <div class="funnel-track" style="background:#ede7f6;"><div class="funnel-fill" style="width:100%; background:linear-gradient(90deg,#4527a0,#7c4dff);"></div></div>
-          <span class="funnel-pct">100%</span>
-        </div>
-        <div class="funnel-row">
-          <span class="funnel-label">초대 (26)</span>
-          <div class="funnel-track" style="background:#e0f7fa;"><div class="funnel-fill" style="width:4.0%; background:linear-gradient(90deg,#00838f,#26c6da);"></div></div>
-          <span class="funnel-pct">4.0%</span>
-        </div>
-        <div class="funnel-row">
-          <span class="funnel-label">사용 (12)</span>
-          <div class="funnel-track" style="background:#e8f5e9;"><div class="funnel-fill" style="width:1.8%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div>
-          <span class="funnel-pct">1.8%</span>
-        </div>
-      </div>
+      <div id="mkt-summary-cards" class="summary-grid"></div>
+      <div id="mkt-daily-trend" class="section"></div>
+      <div id="mkt-funnel" class="section"></div>
     </div>
 
-    <!-- 대리점 성과 -->
+    <!-- 대리점 성과 (동적 렌더링) -->
     <div id="sub-mkt-performance" class="tab-panel">
-      <div class="section">
-        <h2>대리점별 쿠폰 성과 (초대 발생 대리점)</h2>
-        <p style="color:#888; font-size:12px; margin-bottom:14px;">5/28 기준 | 전일(5/27) 대비 증감 표시</p>
-        <div class="table-scroll">
-        <table>
-          <thead><tr><th>대리점</th><th>발급</th><th>초대</th><th>초대 증감</th><th>사용</th><th>사용 증감</th><th>초대율</th><th>성과</th></tr></thead>
-          <tbody>
-            <tr><td style="font-weight:600;">광주 광산구/서구</td><td>19</td><td>10</td><td><span class="change change-up">+2</span></td><td>7</td><td><span class="change change-up">+1</span></td><td>52.6%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:52.6%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">53%</div></div></td></tr>
-            <tr><td style="font-weight:600;">대전 대리점</td><td>17</td><td>4</td><td><span class="change change-neutral">-</span></td><td>2</td><td><span class="change change-up">+2</span></td><td>23.5%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:23.5%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">24%</div></div></td></tr>
-            <tr><td style="font-weight:600;">전주 완산구</td><td>14</td><td>2</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>14.3%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:14.3%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div><div class="coupon-bar-label">14%</div></div></td></tr>
-            <tr><td style="font-weight:600;">삼척 대리점</td><td>20</td><td>2</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>10.0%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:10.0%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div><div class="coupon-bar-label">10%</div></div></td></tr>
-            <tr><td style="font-weight:600;">인천 영종도</td><td>11</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>9.1%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:9.1%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">9%</div></div></td></tr>
-            <tr><td style="font-weight:600;">부산남구</td><td>13</td><td>1</td><td><span class="change change-up">NEW</span></td><td>1</td><td><span class="change change-up">+1</span></td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
-            <tr><td style="font-weight:600;">전남 여수</td><td>13</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
-            <tr><td style="font-weight:600;">경기 이천</td><td>13</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
-            <tr><td style="font-weight:600;">천안 서북구</td><td>14</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.1%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.1%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
-            <tr><td style="font-weight:600;">김해대리점</td><td>15</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>6.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:6.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
-            <tr><td style="font-weight:600;">천안 동남구</td><td>15</td><td>1</td><td><span class="change change-neutral">-</span></td><td>1</td><td><span class="change change-neutral">-</span></td><td>6.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:6.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
-            <tr><td style="font-weight:600;">대구 달서구</td><td>18</td><td>1</td><td><span class="change change-neutral">-</span></td><td>1</td><td><span class="change change-up">+1</span></td><td>5.6%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:5.6%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">6%</div></div></td></tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
+      <div id="mkt-performance-section" class="section"></div>
     </div>
 
-    <!-- 전체 발급 현황 -->
+    <!-- 전체 발급 현황 (동적 렌더링) -->
     <div id="sub-mkt-all" class="tab-panel">
-      <div class="section">
-        <h2>전체 대리점 쿠폰 발급 현황 (39개)</h2>
-        <p style="color:#888; font-size:12px; margin-bottom:14px;">5/28 기준 | 초대 발생 12개 대리점 | 전일(5/27) 대비 증감 표시</p>
-        <div class="table-scroll">
-        <table>
-          <thead><tr><th>No.</th><th>대리점</th><th>발급</th><th>초대</th><th>초대 증감</th><th>사용</th><th>사용 증감</th><th>초대율</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>광주 광산구/서구</td><td>19</td><td>10</td><td><span class="change change-up">+2</span></td><td>7</td><td><span class="change change-up">+1</span></td><td>52.6%</td></tr>
-            <tr><td>2</td><td>대전 대리점</td><td>17</td><td>4</td><td><span class="change change-neutral">-</span></td><td>2</td><td><span class="change change-up">+2</span></td><td>23.5%</td></tr>
-            <tr><td>3</td><td>전주 완산구</td><td>14</td><td>2</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>14.3%</td></tr>
-            <tr><td>4</td><td>삼척 대리점</td><td>20</td><td>2</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>10.0%</td></tr>
-            <tr><td>5</td><td>인천 영종도</td><td>11</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>9.1%</td></tr>
-            <tr><td>6</td><td>부산남구</td><td>13</td><td>1</td><td><span class="change change-up">NEW</span></td><td>1</td><td><span class="change change-up">+1</span></td><td>7.7%</td></tr>
-            <tr><td>7</td><td>전남 여수</td><td>13</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.7%</td></tr>
-            <tr><td>8</td><td>경기 이천</td><td>13</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.7%</td></tr>
-            <tr><td>9</td><td>천안 서북구</td><td>14</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>7.1%</td></tr>
-            <tr><td>10</td><td>김해대리점</td><td>15</td><td>1</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>6.7%</td></tr>
-            <tr><td>11</td><td>천안 동남구</td><td>15</td><td>1</td><td><span class="change change-neutral">-</span></td><td>1</td><td><span class="change change-neutral">-</span></td><td>6.7%</td></tr>
-            <tr><td>12</td><td>대구 달서구</td><td>18</td><td>1</td><td><span class="change change-neutral">-</span></td><td>1</td><td><span class="change change-up">+1</span></td><td>5.6%</td></tr>
-            <tr><td>13</td><td>의정부/도봉/노원/강북</td><td>30</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>14</td><td>울산 대리점</td><td>27</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>15</td><td>경기 고양</td><td>26</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>16</td><td>창원대리점</td><td>26</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>17</td><td>경기수원</td><td>25</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>18</td><td>경기 부천</td><td>22</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>19</td><td>서울 동대문/성북</td><td>21</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>20</td><td>인천 서해구/검단구</td><td>19</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>21</td><td>서울 강남구</td><td>18</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>22</td><td>충북 청주</td><td>18</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>23</td><td>경기 김포</td><td>17</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>24</td><td>경기 파주</td><td>17</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>25</td><td>구미 대리점</td><td>16</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>26</td><td>해운대 대리점</td><td>16</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>27</td><td>광주 북구</td><td>16</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>28</td><td>경기 광주</td><td>15</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>29</td><td>전주 덕진구/완주군</td><td>15</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>30</td><td>경남 진주</td><td>15</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>31</td><td>부산진구</td><td>15</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>32</td><td>장유 대리점</td><td>13</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>33</td><td>경남 거제</td><td>13</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>34</td><td>경주 불국사히어로</td><td>13</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>35</td><td>경기 양주</td><td>13</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>36</td><td>수영구 대리점</td><td>12</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>37</td><td>연제구대리점</td><td>12</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>38</td><td>경기 여주</td><td>10</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-            <tr><td>39</td><td>광주 동구</td><td>10</td><td>0</td><td><span class="change change-neutral">-</span></td><td>0</td><td><span class="change change-neutral">-</span></td><td>0.0%</td></tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
+      <div id="mkt-all-section" class="section"></div>
     </div>
   </div>
 </div>
@@ -570,6 +436,199 @@ document.querySelectorAll('.sub-tab').forEach(tab => {
     document.getElementById('sub-' + target).classList.add('active');
   });
 });
+
+// ==================== 마케팅 보고서 동적 렌더링 ====================
+
+function changeTag(diff, prev, type) {
+  if (diff === 0) return '<span class="change change-neutral">-</span>';
+  const sign = diff > 0 ? '+' : '';
+  const cls = diff > 0 ? 'change-up' : 'change-down';
+  if (type === 'new') return `<span class="change ${cls}">NEW</span>`;
+  if (type === 'pct' && prev !== 0) {
+    const pct = ((diff / prev) * 100).toFixed(1);
+    return `<span class="change ${cls}">${sign}${diff} (${sign}${pct}%)</span>`;
+  }
+  return `<span class="change ${cls}">${sign}${diff}</span>`;
+}
+
+function fmtDate(dateStr) {
+  const d = dateStr.split('-');
+  return `${parseInt(d[1])}/${parseInt(d[2])}`;
+}
+
+function barColor(rate) {
+  if (rate >= 20) return 'linear-gradient(90deg,#2e7d32,#66bb6a)';
+  if (rate >= 10) return 'linear-gradient(90deg,#1565c0,#42a5f5)';
+  return 'linear-gradient(90deg,#e65100,#ff9800)';
+}
+
+async function renderMarketing() {
+  const [dailyRes, dealerRes] = await Promise.all([
+    fetch('data/coupon_daily.json'),
+    fetch('data/dealer_stats.json')
+  ]);
+  const daily = await dailyRes.json();
+  const dealer = await dealerRes.json();
+
+  const hist = daily.history;
+  const latest = hist[hist.length - 1];
+  const prev = hist.length >= 2 ? hist[hist.length - 2] : null;
+
+  const latestRate = latest.registered > 0 ? (latest.used / latest.registered * 100) : 0;
+  const prevRate = prev && prev.registered > 0 ? (prev.used / prev.registered * 100) : 0;
+
+  const regDiff = prev ? latest.registered - prev.registered : 0;
+  const useDiff = prev ? latest.used - prev.used : 0;
+  const rateDiff = prev ? latestRate - prevRate : 0;
+
+  const prevLabel = prev ? fmtDate(prev.date) : '';
+  const latestLabel = fmtDate(latest.date);
+
+  // === 종합 카드 ===
+  document.getElementById('mkt-summary-cards').innerHTML = `
+    <div class="summary-card card-coupon">
+      <div class="label">총 발행량</div>
+      <div class="value">${dealer.total_issued.toLocaleString()}</div>
+      <div class="sub">${dealer.total_dealers}개 대리점 배포</div>
+    </div>
+    <div class="summary-card card-coupon-inv">
+      <div class="label">초대(등록)수</div>
+      <div class="value">${latest.registered}</div>
+      ${prev ? `<div class="change ${regDiff>0?'change-up':regDiff<0?'change-down':'change-neutral'}">${regDiff>0?'+':''}${regDiff} (${regDiff>0?'+':''}${prev.registered?((regDiff/prev.registered)*100).toFixed(1):'0'}%)</div><div class="change-date">전일(${prevLabel}) 대비</div>` : '<div class="sub">쿠폰 사용자 등록</div>'}
+    </div>
+    <div class="summary-card card-coupon-use">
+      <div class="label">사용 완료</div>
+      <div class="value">${latest.used}</div>
+      ${prev ? `<div class="change ${useDiff>0?'change-up':useDiff<0?'change-down':'change-neutral'}">${useDiff>0?'+':''}${useDiff} (${useDiff>0?'+':''}${prev.used?((useDiff/prev.used)*100).toFixed(1):'0'}%)</div><div class="change-date">전일(${prevLabel}) 대비</div>` : '<div class="sub">실제 서비스 이용</div>'}
+    </div>
+    <div class="summary-card card-coupon-rate">
+      <div class="label">사용률</div>
+      <div class="value">${latestRate.toFixed(1)}%</div>
+      ${prev ? `<div class="change ${rateDiff>0?'change-up':rateDiff<0?'change-down':'change-neutral'}">${rateDiff>0?'+':''}${rateDiff.toFixed(1)}%p</div><div class="change-date">전일(${prevLabel}) ${prevRate.toFixed(1)}%</div>` : '<div class="sub">초대 대비 사용 비율</div>'}
+    </div>
+  `;
+
+  // === 일일 추이 테이블 ===
+  let trendRows = '';
+  for (let i = hist.length - 1; i >= 0; i--) {
+    const h = hist[i];
+    const rate = h.registered > 0 ? (h.used / h.registered * 100).toFixed(1) : '0.0';
+    const isLatest = i === hist.length - 1;
+    const p = i > 0 ? hist[i - 1] : null;
+    const rDiff = p ? h.registered - p.registered : 0;
+    const uDiff = p ? h.used - p.used : 0;
+    trendRows += `<tr>
+      <td style="${isLatest?'font-weight:600;':''}">${fmtDate(h.date)}${isLatest?' (최신)':''}</td>
+      <td>${h.registered}</td><td>${h.used}</td><td>${h.unused}</td><td>${rate}%</td>
+      <td>${p ? changeTag(rDiff, p.registered, 'pct') : '<span class="change change-neutral">-</span>'}</td>
+      <td>${p ? changeTag(uDiff, p.used, 'pct') : '<span class="change change-neutral">-</span>'}</td>
+    </tr>`;
+  }
+  document.getElementById('mkt-daily-trend').innerHTML = `
+    <h2>쿠폰 사용 일일 추이</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>기준일</th><th>등록수</th><th>사용완료</th><th>미사용</th><th>사용률</th><th>등록 증감</th><th>사용 증감</th></tr></thead>
+      <tbody>${trendRows}</tbody>
+    </table></div>
+  `;
+
+  // === 퍼널 ===
+  const invPct = (latest.registered / dealer.total_issued * 100).toFixed(1);
+  const usePct = (latest.used / dealer.total_issued * 100).toFixed(1);
+  document.getElementById('mkt-funnel').innerHTML = `
+    <h2>쿠폰 전환 퍼널</h2>
+    <div class="funnel-row">
+      <span class="funnel-label">발행 (${dealer.total_issued.toLocaleString()})</span>
+      <div class="funnel-track" style="background:#ede7f6;"><div class="funnel-fill" style="width:100%; background:linear-gradient(90deg,#4527a0,#7c4dff);"></div></div>
+      <span class="funnel-pct">100%</span>
+    </div>
+    <div class="funnel-row">
+      <span class="funnel-label">초대 (${latest.registered})</span>
+      <div class="funnel-track" style="background:#e0f7fa;"><div class="funnel-fill" style="width:${invPct}%; background:linear-gradient(90deg,#00838f,#26c6da);"></div></div>
+      <span class="funnel-pct">${invPct}%</span>
+    </div>
+    <div class="funnel-row">
+      <span class="funnel-label">사용 (${latest.used})</span>
+      <div class="funnel-track" style="background:#e8f5e9;"><div class="funnel-fill" style="width:${usePct}%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div>
+      <span class="funnel-pct">${usePct}%</span>
+    </div>
+  `;
+
+  // === 대리점 성과 (초대 발생 대리점만) ===
+  const latestDate = hist[hist.length - 1].date;
+  const prevDate = prev ? prev.date : null;
+
+  const activeDealers = dealer.dealers
+    .map(d => {
+      const cur = d.history.find(h => h.date === latestDate) || { invited: 0, used: 0 };
+      const prv = prevDate ? (d.history.find(h => h.date === prevDate) || { invited: 0, used: 0 }) : null;
+      const rate = d.issued > 0 ? (cur.invited / d.issued * 100) : 0;
+      return { ...d, cur, prv, rate };
+    })
+    .filter(d => d.cur.invited > 0)
+    .sort((a, b) => b.rate - a.rate);
+
+  let perfRows = '';
+  activeDealers.forEach(d => {
+    const invDiff = d.prv ? d.cur.invited - d.prv.invited : 0;
+    const useDiff = d.prv ? d.cur.used - d.prv.used : 0;
+    const invTag = d.prv && d.prv.invited === 0 && d.cur.invited > 0
+      ? changeTag(invDiff, 0, 'new') : changeTag(invDiff, d.prv ? d.prv.invited : 0, 'num');
+    perfRows += `<tr>
+      <td style="font-weight:600;">${d.name}</td>
+      <td>${d.issued}</td><td>${d.cur.invited}</td><td>${invTag}</td>
+      <td>${d.cur.used}</td><td>${changeTag(useDiff, d.prv ? d.prv.used : 0, 'num')}</td>
+      <td>${d.rate.toFixed(1)}%</td>
+      <td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:${d.rate}%; background:${barColor(d.rate)};"></div></div><div class="coupon-bar-label">${Math.round(d.rate)}%</div></div></td>
+    </tr>`;
+  });
+
+  document.getElementById('mkt-performance-section').innerHTML = `
+    <h2>대리점별 쿠폰 성과 (초대 발생 ${activeDealers.length}개 대리점)</h2>
+    <p style="color:#888; font-size:12px; margin-bottom:14px;">${latestLabel} 기준 | 전일(${prevLabel}) 대비 증감 표시</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>대리점</th><th>발급</th><th>초대</th><th>초대 증감</th><th>사용</th><th>사용 증감</th><th>초대율</th><th>성과</th></tr></thead>
+      <tbody>${perfRows}</tbody>
+    </table></div>
+  `;
+
+  // === 전체 발급 현황 ===
+  const allDealers = dealer.dealers
+    .map(d => {
+      const cur = d.history.find(h => h.date === latestDate) || { invited: 0, used: 0 };
+      const prv = prevDate ? (d.history.find(h => h.date === prevDate) || { invited: 0, used: 0 }) : null;
+      const rate = d.issued > 0 ? (cur.invited / d.issued * 100) : 0;
+      return { ...d, cur, prv, rate };
+    })
+    .sort((a, b) => b.rate - a.rate || b.cur.invited - a.cur.invited);
+
+  const invitedCount = allDealers.filter(d => d.cur.invited > 0).length;
+
+  let allRows = '';
+  allDealers.forEach((d, i) => {
+    const invDiff = d.prv ? d.cur.invited - d.prv.invited : 0;
+    const uDiff = d.prv ? d.cur.used - d.prv.used : 0;
+    const invTag = d.prv && d.prv.invited === 0 && d.cur.invited > 0
+      ? changeTag(invDiff, 0, 'new') : changeTag(invDiff, d.prv ? d.prv.invited : 0, 'num');
+    allRows += `<tr>
+      <td>${i+1}</td><td>${d.name}</td><td>${d.issued}</td>
+      <td>${d.cur.invited}</td><td>${invTag}</td>
+      <td>${d.cur.used}</td><td>${changeTag(uDiff, d.prv ? d.prv.used : 0, 'num')}</td>
+      <td>${d.rate.toFixed(1)}%</td>
+    </tr>`;
+  });
+
+  document.getElementById('mkt-all-section').innerHTML = `
+    <h2>전체 대리점 쿠폰 발급 현황 (${dealer.total_dealers}개)</h2>
+    <p style="color:#888; font-size:12px; margin-bottom:14px;">${latestLabel} 기준 | 초대 발생 ${invitedCount}개 대리점 | 전일(${prevLabel}) 대비 증감 표시</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>No.</th><th>대리점</th><th>발급</th><th>초대</th><th>초대 증감</th><th>사용</th><th>사용 증감</th><th>초대율</th></tr></thead>
+      <tbody>${allRows}</tbody>
+    </table></div>
+  `;
+}
+
+renderMarketing();
 </script>
 </body>
 </html>
