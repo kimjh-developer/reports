@@ -49,6 +49,13 @@
   .card-coupon-use .value { color: #2e7d32; }
   .card-coupon-rate .value { color: #ad1457; }
 
+  /* 증감율 표시 */
+  .change { font-size: 12px; font-weight: 600; margin-top: 4px; }
+  .change-up { color: #2e7d32; }
+  .change-down { color: #c62828; }
+  .change-neutral { color: #888; }
+  .change-date { font-size: 10px; color: #aaa; margin-top: 2px; }
+
   /* 섹션 */
   .section { background: #fff; border-radius: 12px; padding: 28px 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
   .section h2 { font-size: 18px; color: #1a237e; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #e8eaf6; }
@@ -127,7 +134,7 @@
 
 <div class="header">
   <h1>모니본 종합 보고서</h1>
-  <div class="date">보고일: 2026년 05월 28일 (목) | 기준 데이터: Notion DB</div>
+  <div class="date">보고일: 2026년 05월 29일 (금) | 기준 데이터: Notion DB + 사용자쿠폰 Excel</div>
 </div>
 
 <!-- 대분류 탭 -->
@@ -386,18 +393,43 @@
         </div>
         <div class="summary-card card-coupon-inv">
           <div class="label">초대(등록)수</div>
-          <div class="value">23</div>
-          <div class="sub">쿠폰 사용자 등록</div>
+          <div class="value">26</div>
+          <div class="change change-up">+3 (+13.0%)</div>
+          <div class="change-date">전일(5/27) 대비</div>
         </div>
         <div class="summary-card card-coupon-use">
           <div class="label">사용 완료</div>
-          <div class="value">7</div>
-          <div class="sub">실제 서비스 이용</div>
+          <div class="value">12</div>
+          <div class="change change-up">+5 (+71.4%)</div>
+          <div class="change-date">전일(5/27) 대비</div>
         </div>
         <div class="summary-card card-coupon-rate">
           <div class="label">사용률</div>
-          <div class="value">30.4%</div>
-          <div class="sub">초대 대비 사용 비율</div>
+          <div class="value">46.2%</div>
+          <div class="change change-up">+15.8%p</div>
+          <div class="change-date">전일(5/27) 30.4%</div>
+        </div>
+      </div>
+
+      <!-- 일일 증감 추이 -->
+      <div class="section">
+        <h2>쿠폰 사용 일일 추이</h2>
+        <div class="table-scroll">
+        <table>
+          <thead><tr><th>기준일</th><th>등록수</th><th>사용완료</th><th>미사용</th><th>사용률</th><th>등록 증감</th><th>사용 증감</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">5/28 (최신)</td><td>26</td><td>12</td><td>14</td><td>46.2%</td>
+              <td><span class="change change-up">+3 (+13.0%)</span></td>
+              <td><span class="change change-up">+5 (+71.4%)</span></td>
+            </tr>
+            <tr>
+              <td>5/27</td><td>23</td><td>7</td><td>16</td><td>30.4%</td>
+              <td><span class="change change-neutral">-</span></td>
+              <td><span class="change change-neutral">-</span></td>
+            </tr>
+          </tbody>
+        </table>
         </div>
       </div>
 
@@ -409,14 +441,14 @@
           <span class="funnel-pct">100%</span>
         </div>
         <div class="funnel-row">
-          <span class="funnel-label">초대 (23)</span>
-          <div class="funnel-track" style="background:#e0f7fa;"><div class="funnel-fill" style="width:3.6%; background:linear-gradient(90deg,#00838f,#26c6da);"></div></div>
-          <span class="funnel-pct">3.6%</span>
+          <span class="funnel-label">초대 (26)</span>
+          <div class="funnel-track" style="background:#e0f7fa;"><div class="funnel-fill" style="width:4.0%; background:linear-gradient(90deg,#00838f,#26c6da);"></div></div>
+          <span class="funnel-pct">4.0%</span>
         </div>
         <div class="funnel-row">
-          <span class="funnel-label">사용 (7)</span>
-          <div class="funnel-track" style="background:#e8f5e9;"><div class="funnel-fill" style="width:1.1%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div>
-          <span class="funnel-pct">1.1%</span>
+          <span class="funnel-label">사용 (12)</span>
+          <div class="funnel-track" style="background:#e8f5e9;"><div class="funnel-fill" style="width:1.8%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div>
+          <span class="funnel-pct">1.8%</span>
         </div>
       </div>
     </div>
@@ -429,17 +461,18 @@
         <table>
           <thead><tr><th>대리점</th><th>쿠폰번호</th><th>발급</th><th>초대</th><th>사용</th><th>초대율</th><th>성과</th></tr></thead>
           <tbody>
-            <tr><td style="font-weight:600;">광주 광산구/서구</td><td>473-491</td><td>19</td><td>8</td><td>6</td><td>42.1%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:42.1%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">42%</div></div></td></tr>
-            <tr><td style="font-weight:600;">대전 대리점</td><td>507-523</td><td>17</td><td>4</td><td>0</td><td>23.5%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:23.5%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">24%</div></div></td></tr>
-            <tr><td style="font-weight:600;">삼척 대리점</td><td>141-150/643-652</td><td>20</td><td>2</td><td>0</td><td>10.0%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:10.0%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div><div class="coupon-bar-label">10%</div></div></td></tr>
+            <tr><td style="font-weight:600;">광주 광산구/서구</td><td>473-491</td><td>19</td><td>10 <span class="change change-up">+2</span></td><td>7 <span class="change change-up">+1</span></td><td>52.6%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:52.6%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">53%</div></div></td></tr>
+            <tr><td style="font-weight:600;">대전 대리점</td><td>507-523</td><td>17</td><td>4</td><td>2 <span class="change change-up">+2</span></td><td>23.5%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:23.5%; background:linear-gradient(90deg,#2e7d32,#66bb6a);"></div></div><div class="coupon-bar-label">24%</div></div></td></tr>
             <tr><td style="font-weight:600;">전주 완산구</td><td>114-127</td><td>14</td><td>2</td><td>0</td><td>14.3%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:14.3%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div><div class="coupon-bar-label">14%</div></div></td></tr>
+            <tr><td style="font-weight:600;">삼척 대리점</td><td>141-150/643-652</td><td>20</td><td>2</td><td>0</td><td>10.0%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:10.0%; background:linear-gradient(90deg,#1565c0,#42a5f5);"></div></div><div class="coupon-bar-label">10%</div></div></td></tr>
             <tr><td style="font-weight:600;">인천 영종도</td><td>554-564</td><td>11</td><td>1</td><td>0</td><td>9.1%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:9.1%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">9%</div></div></td></tr>
+            <tr><td style="font-weight:600;">부산남구</td><td>442-454</td><td>13</td><td>1 <span class="change change-up">NEW</span></td><td>1 <span class="change change-up">+1</span></td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
             <tr><td style="font-weight:600;">전남 여수</td><td>337-349</td><td>13</td><td>1</td><td>0</td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
             <tr><td style="font-weight:600;">경기 이천</td><td>350-362</td><td>13</td><td>1</td><td>0</td><td>7.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">8%</div></div></td></tr>
             <tr><td style="font-weight:600;">천안 서북구</td><td>298-311</td><td>14</td><td>1</td><td>0</td><td>7.1%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:7.1%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
             <tr><td style="font-weight:600;">김해대리점</td><td>539-553</td><td>15</td><td>1</td><td>0</td><td>6.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:6.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
             <tr><td style="font-weight:600;">천안 동남구</td><td>283-297</td><td>15</td><td>1</td><td>1</td><td>6.7%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:6.7%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">7%</div></div></td></tr>
-            <tr><td style="font-weight:600;">대구 달서구</td><td>455-472</td><td>18</td><td>1</td><td>0</td><td>5.6%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:5.6%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">6%</div></div></td></tr>
+            <tr><td style="font-weight:600;">대구 달서구</td><td>455-472</td><td>18</td><td>1</td><td>1 <span class="change change-up">+1</span></td><td>5.6%</td><td><div class="coupon-bar"><div class="coupon-bar-bg"><div class="coupon-bar-fill" style="width:5.6%; background:linear-gradient(90deg,#e65100,#ff9800);"></div></div><div class="coupon-bar-label">6%</div></div></td></tr>
           </tbody>
         </table>
         </div>
@@ -449,46 +482,46 @@
     <!-- 전체 발급 현황 -->
     <div id="sub-mkt-all" class="tab-panel">
       <div class="section">
-        <h2>전체 대리점 쿠폰 발급 현황 (39개)</h2>
+        <h2>전체 대리점 쿠폰 발급 현황 (39개) <span style="font-size:13px; color:#2e7d32; font-weight:400;">| 5/28 기준 초대 12개 대리점</span></h2>
         <div class="table-scroll">
         <table>
           <thead><tr><th>No.</th><th>대리점</th><th>쿠폰번호</th><th>발급량</th><th>초대</th><th>사용</th><th>초대율</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td>광주 광산구/서구</td><td>473-491</td><td>19</td><td>8</td><td>6</td><td>42.1%</td></tr>
-            <tr><td>2</td><td>대전 대리점</td><td>507-523</td><td>17</td><td>4</td><td>0</td><td>23.5%</td></tr>
+            <tr><td>1</td><td>광주 광산구/서구</td><td>473-491</td><td>19</td><td>10</td><td>7</td><td>52.6%</td></tr>
+            <tr><td>2</td><td>대전 대리점</td><td>507-523</td><td>17</td><td>4</td><td>2</td><td>23.5%</td></tr>
             <tr><td>3</td><td>전주 완산구</td><td>114-127</td><td>14</td><td>2</td><td>0</td><td>14.3%</td></tr>
             <tr><td>4</td><td>삼척 대리점</td><td>141-150/643-652</td><td>20</td><td>2</td><td>0</td><td>10.0%</td></tr>
             <tr><td>5</td><td>인천 영종도</td><td>554-564</td><td>11</td><td>1</td><td>0</td><td>9.1%</td></tr>
-            <tr><td>6</td><td>전남 여수</td><td>337-349</td><td>13</td><td>1</td><td>0</td><td>7.7%</td></tr>
-            <tr><td>7</td><td>경기 이천</td><td>350-362</td><td>13</td><td>1</td><td>0</td><td>7.7%</td></tr>
-            <tr><td>8</td><td>천안 서북구</td><td>298-311</td><td>14</td><td>1</td><td>0</td><td>7.1%</td></tr>
-            <tr><td>9</td><td>김해대리점</td><td>539-553</td><td>15</td><td>1</td><td>0</td><td>6.7%</td></tr>
-            <tr><td>10</td><td>천안 동남구</td><td>283-297</td><td>15</td><td>1</td><td>1</td><td>6.7%</td></tr>
-            <tr><td>11</td><td>대구 달서구</td><td>455-472</td><td>18</td><td>1</td><td>0</td><td>5.6%</td></tr>
-            <tr><td>12</td><td>의정부/도봉/노원/강북</td><td>151-180</td><td>30</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>13</td><td>울산 대리점</td><td>587-613</td><td>27</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>14</td><td>경기 고양</td><td>17-42</td><td>26</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>15</td><td>창원대리점</td><td>395-420</td><td>26</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>16</td><td>경기수원</td><td>312-336</td><td>25</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>17</td><td>경기 부천</td><td>565-586</td><td>22</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>18</td><td>서울 동대문/성북</td><td>421-441</td><td>21</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>19</td><td>인천 서해구/검단구</td><td>624-642</td><td>19</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>20</td><td>서울 강남구</td><td>43-60</td><td>18</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>21</td><td>충북 청주</td><td>252-269</td><td>18</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>22</td><td>경기 김포</td><td>235-251</td><td>17</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>23</td><td>경기 파주</td><td>363-379</td><td>17</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>24</td><td>구미 대리점</td><td>1-16</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>25</td><td>해운대 대리점</td><td>85-100</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>26</td><td>광주 북구</td><td>219-234</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>27</td><td>경기 광주</td><td>204-218</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>28</td><td>전주 덕진구/완주군</td><td>380-394</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>29</td><td>경남 진주</td><td>492-506</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>30</td><td>부산진구</td><td>524-538</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>31</td><td>장유 대리점</td><td>101-113</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>32</td><td>경남 거제</td><td>128-140</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>33</td><td>경주 불국사히어로</td><td>181-193</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>34</td><td>경기 양주</td><td>270-282</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
-            <tr><td>35</td><td>부산남구</td><td>442-454</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>6</td><td>부산남구</td><td>442-454</td><td>13</td><td>1</td><td>1</td><td>7.7%</td></tr>
+            <tr><td>7</td><td>전남 여수</td><td>337-349</td><td>13</td><td>1</td><td>0</td><td>7.7%</td></tr>
+            <tr><td>8</td><td>경기 이천</td><td>350-362</td><td>13</td><td>1</td><td>0</td><td>7.7%</td></tr>
+            <tr><td>9</td><td>천안 서북구</td><td>298-311</td><td>14</td><td>1</td><td>0</td><td>7.1%</td></tr>
+            <tr><td>10</td><td>김해대리점</td><td>539-553</td><td>15</td><td>1</td><td>0</td><td>6.7%</td></tr>
+            <tr><td>11</td><td>천안 동남구</td><td>283-297</td><td>15</td><td>1</td><td>1</td><td>6.7%</td></tr>
+            <tr><td>12</td><td>대구 달서구</td><td>455-472</td><td>18</td><td>1</td><td>1</td><td>5.6%</td></tr>
+            <tr><td>13</td><td>의정부/도봉/노원/강북</td><td>151-180</td><td>30</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>14</td><td>울산 대리점</td><td>587-613</td><td>27</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>15</td><td>경기 고양</td><td>17-42</td><td>26</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>16</td><td>창원대리점</td><td>395-420</td><td>26</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>17</td><td>경기수원</td><td>312-336</td><td>25</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>18</td><td>경기 부천</td><td>565-586</td><td>22</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>19</td><td>서울 동대문/성북</td><td>421-441</td><td>21</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>20</td><td>인천 서해구/검단구</td><td>624-642</td><td>19</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>21</td><td>서울 강남구</td><td>43-60</td><td>18</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>22</td><td>충북 청주</td><td>252-269</td><td>18</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>23</td><td>경기 김포</td><td>235-251</td><td>17</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>24</td><td>경기 파주</td><td>363-379</td><td>17</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>25</td><td>구미 대리점</td><td>1-16</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>26</td><td>해운대 대리점</td><td>85-100</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>27</td><td>광주 북구</td><td>219-234</td><td>16</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>28</td><td>경기 광주</td><td>204-218</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>29</td><td>전주 덕진구/완주군</td><td>380-394</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>30</td><td>경남 진주</td><td>492-506</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>31</td><td>부산진구</td><td>524-538</td><td>15</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>32</td><td>장유 대리점</td><td>101-113</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>33</td><td>경남 거제</td><td>128-140</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>34</td><td>경주 불국사히어로</td><td>181-193</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
+            <tr><td>35</td><td>경기 양주</td><td>270-282</td><td>13</td><td>0</td><td>0</td><td>0.0%</td></tr>
             <tr><td>36</td><td>수영구 대리점</td><td>61-72</td><td>12</td><td>0</td><td>0</td><td>0.0%</td></tr>
             <tr><td>37</td><td>연제구대리점</td><td>73-84</td><td>12</td><td>0</td><td>0</td><td>0.0%</td></tr>
             <tr><td>38</td><td>경기 여주</td><td>614-623</td><td>10</td><td>0</td><td>0</td><td>0.0%</td></tr>
@@ -503,7 +536,7 @@
 
 <div class="container">
   <div class="footer">
-    본 보고서는 Notion 대리점 관리 데이터베이스 기준으로 자동 생성되었습니다. | 2026-05-28
+    본 보고서는 Notion 대리점 관리 데이터베이스 기준으로 자동 생성되었습니다. | 2026-05-29
   </div>
 </div>
 
